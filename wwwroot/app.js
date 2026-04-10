@@ -13,6 +13,7 @@ const elements = {
 	statusPanel: document.getElementById("status-panel"),
 	refreshPostsButton: document.getElementById("refresh-posts-button"),
 	newPostButton: document.getElementById("new-post-button"),
+	storageIndicator: document.getElementById("storage-indicator"),
 	postListLoading: document.getElementById("post-list-loading"),
 	postList: document.getElementById("post-list"),
 	postDetails: document.getElementById("post-details"),
@@ -34,6 +35,8 @@ const elements = {
 initializePage();
 
 function initializePage() {
+	loadAppInfo();
+
 	elements.refreshPostsButton.addEventListener("click", () => {
 		loadPosts(state.selectedPostId);
 	});
@@ -66,6 +69,15 @@ function initializePage() {
 	});
 
 	loadPosts();
+}
+
+async function loadAppInfo() {
+	try {
+		const appInfo = await sendJsonRequest("/app-info");
+		elements.storageIndicator.textContent = `Storage: ${appInfo.storageProvider}`;
+	} catch {
+		elements.storageIndicator.textContent = "Storage: InMemory";
+	}
 }
 
 async function loadPosts(preferredPostId) {

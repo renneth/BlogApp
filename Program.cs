@@ -33,6 +33,13 @@ if (hasHttpsEndpoint)
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
+app.MapGet("/app-info", (IConfiguration configuration) => Results.Ok(new
+{
+    storageProvider = GetStorageProviderDisplayName(configuration)
+}))
+    .WithName("GetAppInfo")
+    .WithSummary("Get metadata for the demo UI");
+
 // Group all blog post endpoints under /posts.
 var posts = app.MapGroup("/posts").WithTags("Posts");
 
@@ -141,6 +148,24 @@ static IBlogService CreateBlogService(ConfigurationManager configuration)
     }
 
     throw new InvalidOperationException($"Unsupported persistence provider '{provider}'. Supported values are InMemory and SqlServer.");
+}
+
+static string GetStorageProviderDisplayName(IConfiguration configuration)
+{
+    var provider = configuration["Persistence:Provider"];
+
+    if (string.IsNullOrWhiteSpace(provider)
+        || string.Equals(provider, "InMemory", StringComparison.OrdinalIgnoreCase))
+    {
+        return "In-memory storage";
+    }
+
+    if (string.Equals(provider, "SqlServer", StringComparison.OrdinalIgnoreCase))
+    {
+        return "SQL Server";
+    }
+
+    return provider;
 }
 
 static string? ValidatePostRequest(string? title, string? body)

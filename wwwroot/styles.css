@@ -48,6 +48,27 @@ code {
 	padding: 1.5rem 0 2.5rem;
 }
 
+.page-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+	margin-top: 1.5rem;
+	padding: 1rem 1.25rem;
+	border: 1px solid var(--panel-border);
+	border-radius: var(--radius);
+	background: rgba(255, 255, 255, 0.72);
+	box-shadow: var(--shadow);
+	backdrop-filter: blur(10px);
+}
+
+.footer-text {
+	margin: 0;
+	color: var(--text-soft);
+	font-size: 0.95rem;
+	font-weight: 600;
+}
+
 .page-header {
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) auto;
@@ -58,7 +79,11 @@ code {
 	border: 1px solid rgba(96, 108, 125, 0.12);
 	border-radius: var(--hero-radius);
 	background:
-		linear-gradient(135deg, rgba(79, 100, 120, 0.09), rgba(79, 100, 120, 0) 44%),
+		linear-gradient(
+			135deg,
+			rgba(79, 100, 120, 0.09),
+			rgba(79, 100, 120, 0) 44%
+		),
 		linear-gradient(
 			180deg,
 			rgba(255, 255, 255, 0.92),
@@ -383,6 +408,11 @@ button:disabled {
 	.page-header {
 		grid-template-columns: 1fr;
 		padding: 1.5rem;
+	}
+
+	.page-footer {
+		flex-direction: column;
+		align-items: start;
 	}
 
 	.hero-actions {
