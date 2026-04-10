@@ -1,0 +1,53 @@
+@BlogApp_HostAddress = http://localhost:5030
+
+# Quick API checks for reviewers.
+# The app defaults to the in-memory service, so these requests work without database setup.
+# To test SQL Server instead, set Persistence__Provider=SqlServer and run Database/init.sql first.
+
+GET {{BlogApp_HostAddress}}/posts
+Accept: application/json
+
+###
+
+GET {{BlogApp_HostAddress}}/posts/1
+Accept: application/json
+
+###
+
+POST {{BlogApp_HostAddress}}/posts
+Content-Type: application/json
+
+{
+	"title": "My first post",
+	"body": "This is a simple blog post created through the sample API."
+}
+
+###
+
+PUT {{BlogApp_HostAddress}}/posts/1
+Content-Type: application/json
+
+{
+	"title": "Welcome to the updated blog API",
+	"body": "This post has been edited to show the update endpoint."
+}
+
+###
+
+POST {{BlogApp_HostAddress}}/posts/1/comments
+Content-Type: application/json
+
+{
+	"author": "Taylor",
+	"body": "This comment shows how child resources work."
+}
+
+###
+
+GET {{BlogApp_HostAddress}}/posts/1/comments
+Accept: application/json
+
+###
+
+DELETE {{BlogApp_HostAddress}}/posts/2
+

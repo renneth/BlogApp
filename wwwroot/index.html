@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog API Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="page-shell">
+        <!-- Page header and quick actions -->
+        <header class="page-header">
+            <div class="hero-copy">
+                <p class="eyebrow">Sample app</p>
+                <h1>Blog API Demo</h1>
+                <p class="intro">
+                    Read a post, create a new one, edit the selected post, and add comments from one simple page.
+                </p>
+                <p class="api-subtitle">
+                    This page is only a thin client for the API. Use browser dev tools if you want to watch the requests happen.
+                </p>
+            </div>
+            <div class="hero-actions">
+                <button id="new-post-button" type="button" class="primary-button">Write a post</button>
+                <button id="refresh-posts-button" type="button" class="secondary-button">Refresh feed</button>
+            </div>
+        </header>
+
+        <!--
+            The status banner is updated from JavaScript after API calls.
+            It gives beginners one obvious place to look for success and error messages.
+        -->
+        <section id="status-panel" class="status-panel" aria-live="polite"></section>
+
+        <main class="layout">
+            <!-- Main reading and comment area -->
+            <section class="content-column">
+                <section class="panel story-panel" aria-labelledby="post-details-title">
+                    <div class="panel-header panel-header-story">
+                        <div>
+                            <p class="panel-label">Reading view</p>
+                            <h2 id="post-details-title">Featured post</h2>
+                        </div>
+                        <div class="button-row compact-row">
+                            <button id="edit-post-button" type="button" class="secondary-button" disabled>Edit selected</button>
+                            <button id="delete-post-button" type="button" class="danger-button" disabled>Delete selected</button>
+                        </div>
+                    </div>
+
+                    <p class="panel-copy">
+                        Select a post from the feed to read the full article here.
+                    </p>
+
+                    <div id="post-details" class="post-details empty-state">
+                        Choose a post from the recent feed.
+                    </div>
+                </section>
+
+                <section class="panel" aria-labelledby="comment-form-title">
+                    <div class="panel-header">
+                        <div>
+                            <p class="panel-label">Conversation</p>
+                            <h2 id="comment-form-title">Add a comment</h2>
+                        </div>
+                    </div>
+
+                    <p class="panel-copy">
+                        Add a comment to the currently selected post.
+                    </p>
+
+                    <form id="comment-form" class="editor-form">
+                        <label class="field">
+                            <span>Your name</span>
+                            <input id="comment-author-input" name="author" type="text" maxlength="80" placeholder="Jane Doe" required>
+                        </label>
+
+                        <label class="field">
+                            <span>Comment</span>
+                            <textarea id="comment-body-input" name="body" rows="4" placeholder="Share a thought about this post" required></textarea>
+                        </label>
+
+                        <button id="save-comment-button" type="submit" class="primary-button" disabled>Add comment</button>
+                    </form>
+                </section>
+            </section>
+
+            <!-- Sidebar for the feed and the post editor -->
+            <aside class="sidebar-column">
+                <section class="panel post-list-panel" aria-labelledby="post-list-title">
+                    <div class="panel-header">
+                        <div>
+                            <p class="panel-label">Recent posts</p>
+                            <h2 id="post-list-title">Blog feed</h2>
+                        </div>
+                    </div>
+
+                    <p class="panel-copy">
+                        The feed shows the latest posts. Click one to open it in the reading view.
+                    </p>
+
+                    <div id="post-list-loading" class="helper-text">Loading posts...</div>
+                    <ul id="post-list" class="post-list" aria-live="polite"></ul>
+                </section>
+
+                <section class="panel" aria-labelledby="post-form-title">
+                <div class="panel-header">
+                    <div>
+                        <p class="panel-label">Editor desk</p>
+                        <h2 id="post-form-title">Write or revise a post</h2>
+                    </div>
+                </div>
+
+                <p class="panel-copy">
+                    Use this form to create a post or update the selected one.
+                </p>
+
+                <form id="post-form" class="editor-form">
+                    <label class="field">
+                        <span>Title</span>
+                        <input id="post-title-input" name="title" type="text" maxlength="120" placeholder="A short title" required>
+                    </label>
+
+                    <label class="field">
+                        <span>Body</span>
+                        <textarea id="post-body-input" name="body" rows="8" placeholder="Write the blog post body here" required></textarea>
+                    </label>
+
+                    <p id="post-form-mode" class="helper-text">The form is currently in create mode.</p>
+
+                    <div class="button-row">
+                        <button id="save-post-button" type="submit" class="primary-button">Save post</button>
+                        <button id="cancel-edit-button" type="button" class="secondary-button" hidden>Cancel edit</button>
+                    </div>
+                </form>
+                </section>
+            </aside>
+        </main>
+    </div>
+
+    <script src="/app.js" defer></script>
+</body>
+</html>

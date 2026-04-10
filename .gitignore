@@ -1,0 +1,20 @@
+# Build output
+bin/
+obj/
+
+# User-specific files
+*.Development.json
+*.user
+*.rsuser
+*.suo
+
+# IDE/editor folders
+.vs/
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Local OS files
+.DS_Store
